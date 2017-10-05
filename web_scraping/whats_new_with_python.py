@@ -42,11 +42,11 @@ links = get_links()
 
 for link in links:
     absolute = urljoin(BASE_URL, links.pop())#convert to absolut
-    page = requests.get(absolute) #get the HTML
-    soup = BeautifulSoup(page.text, "lxml") #parse the HTML
-    links_in_page = soup.find_all('li') #find all the links in the page
-    for item in links_in_page:
-        if(item.find('en.wikipedia.org') != -1): #only want english links
+    if(absolute.startswith("https://en.wikipedia.org")):
+        page = requests.get(absolute) #get the HTML
+        soup = BeautifulSoup(page.text, "lxml") #parse the HTML
+        links_in_page = soup.find_all('li') #find all the links in the page
+        for item in links_in_page:
             if(item.get('id') == 'footer-info-lastmod'): #only want last modified text
                 last_modified = item.string
                 print(last_modified)
