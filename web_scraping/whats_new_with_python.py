@@ -49,6 +49,6 @@ for link in links:
         for item in links_in_page:
             if(item.get('id') == 'footer-info-lastmod'): #only want last modified text
                 last_modified = item.string
-                print(last_modified)
+                last_modified = last_modified.substr()
 
 
